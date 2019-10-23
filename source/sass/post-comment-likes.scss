@@ -1,0 +1,26 @@
+
+.like-btn::before {
+  font-family: hbg-pricons;
+  line-height: 1;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  vertical-align: -15%;
+  content: "";
+}
+
+
+.like-btn {
+  color: gray;
+}
+
+.active {
+  color: #ae0b05;
+}
+
+.like-count {
+  position: relative;
+  z-index: -1;
+}
+
+
