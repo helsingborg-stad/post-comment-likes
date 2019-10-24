@@ -25,6 +25,14 @@ define('POSTCOMMENTLIKES_CACHE_DIR', trailingslashit(wp_upload_dir()['basedir'])
 
 load_plugin_textdomain('post-comment-likes', false, plugin_basename(dirname(__FILE__)) . '/languages');
 
+if (file_exists(POSTCOMMENTLIKES_PATH . 'vendor/autoload.php')) {
+    require_once POSTCOMMENTLIKES_PATH . 'vendor/autoload.php';
+}
+
+if(file_exists(dirname(ABSPATH) . '/vendor/autoload.php')) {
+    require_once dirname(ABSPATH) . '/vendor/autoload.php';
+}
+
 require_once POSTCOMMENTLIKES_PATH . 'source/php/Vendor/Psr4ClassLoader.php';
 require_once POSTCOMMENTLIKES_PATH . 'Public.php';
 
@@ -33,6 +41,8 @@ $loader = new PostCommentLikes\Vendor\Psr4ClassLoader();
 $loader->addPrefix('PostCommentLikes', POSTCOMMENTLIKES_PATH);
 $loader->addPrefix('PostCommentLikes', POSTCOMMENTLIKES_PATH . 'source/php/');
 $loader->register();
+
+new \PostCommentLikes\Helper\ArrayMethods();
 
 // function userLike()
 // {
@@ -57,17 +67,6 @@ $loader->register();
 
 //     die();
 // }
-
-function in_array_r($needle, $haystack, $strict = false)
-{
-    foreach ($haystack as $item) {
-        if (($strict ? $item === $needle : $item == $needle) || (is_array($item) && in_array_r($needle, $item, $strict))) {
-            return true;
-        }
-    }
-
-    return false;
-}
 
 // function userMustLogin()
 // {

@@ -60,7 +60,6 @@ abstract class Ajax
                 add_action( 'wp_ajax_'.$functionName, array($this,$functionName) );
             break;
         }
-
         add_action( 'wp_ajax_'.$functionName, array($this,$functionName) );
 
         return true;

@@ -1,5 +1,3 @@
-var PostCommentLikes = {};
-
 var PostCommentLikes = PostCommentLikes || {};
 PostCommentLikes.Ajax = PostCommentLikes.Ajax || {};
 
@@ -21,16 +19,21 @@ PostCommentLikes.Ajax = (function($) {
 
   Like.prototype.ajaxCall = function(likeButton) {
     var like_id = $(likeButton).data('like-id');
+    var is_comment = $(likeButton).data('is-comment');
     var counter = $('span.like-count', likeButton);
     var button = $(likeButton);
+
+    console.log(is_comment);
+    console.log(like_id);
 
     $.ajax({
         url: likeButtonData.ajax_url,
         type: 'post',
         data: {
-            action: 'ajaxLikeMethod',
+            action: 'likeButtonAjax',
+            is_comment: is_comment,
             like_id: like_id,
-            nonce: likeButtonData.nonce,
+            nonce: likeButtonData.nonce
         },
         beforeSend: function() {
             var likes = counter.html();
@@ -45,7 +48,14 @@ PostCommentLikes.Ajax = (function($) {
 
             counter.html(likes);
         },
-        success: function(response) {},
+        success: function(response) {
+            console.log('success!');
+            console.log(response);
+        },
+        error: function(xhr, error){
+            console.debug(xhr); 
+            console.debug(error);
+        },
     });
   };
 

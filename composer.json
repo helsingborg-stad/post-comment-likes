@@ -1,0 +1,23 @@
+{
+  "name": "helsingborg-stad/post-commet-likes",
+  "description": "Like plugin for posts and comments",
+  "type": "wordpress-plugin",
+  "license": "MIT",
+  "authors": [
+      {
+          "name": "Max Frederiksen",
+          "email": "max.frederiksen@ecsolutions.se"
+      }
+  ],
+  "repositories": [
+      {
+          "type": "vcs",
+          "url": "https://github.com/helsingborg-stad/acf-export-manager.git"
+      }
+  ],
+  "require": {
+      "composer/installers": "~1.0",
+      "philo/laravel-blade": "^3.1",
+      "helsingborg-stad/acf-export-manager": ">=1.0.0"
+  }
+}

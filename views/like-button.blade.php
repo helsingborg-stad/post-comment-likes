@@ -1,11 +1,5 @@
-<h1>LIKE ICON</h1>
+<a class="{{ implode(' ', $classes) }}" data-like-id="{{$data_id}}" data-is-comment="{{$is_comment}}" href="javascript:void(0)">
+  <span class="like-count">{{ $count }}</span>
+</a>
 
-<span class="like">
-
-<?php
-  echo '<a class="like-btn" data-like-id="' . $post_id . '" href="javascript:void(0)">
-    <span class="like-count">'. $likes_count .'</span>
-    </a>';
-?>
-</span>
 
