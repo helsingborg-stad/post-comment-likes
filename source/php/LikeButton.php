@@ -16,24 +16,8 @@ class LikeButton extends \PostCommentLikes\Helper\Ajax
         //Hook method to ajax
         $this->hook('likeButtonAjax', true);
 
-        // add_action('the_post', array($this, 'renderLikeButton'));
-        // add_action('init', array($this, 'registerShortcodes'));
         add_shortcode('like-button', array($this, 'renderLikeButton'));
     }
-
-    /**
-     * Register shortcodes
-     */
-    // public function registerShortcodes($atts)
-    // {
-    //     $a = shortcode_atts(array(
-    //         'post_or_comment_id' => '',
-    //     ), $atts );
-
-    //     print_r($atts);
-
-    //     return "post_or_comment_id = {$a['post_or_comment_id']}";
-    // }
 
      /**
      * Ajax method to add comment likes
@@ -89,12 +73,31 @@ class LikeButton extends \PostCommentLikes\Helper\Ajax
             // update post meta
 
             $postId = $_REQUEST['like_id'];
+
+             //check if array exists in meta row
+            if (is_array(get_post_meta($postId, '_likes', true)) == true) {
+                $like = array_merge($like, get_post_meta($postId, '_likes', true));
+            }
+
+            // if user id already exists in array
+            if (\PostCommentLikes\Helper\ArrayMethods::in_array_r(get_current_user_id(), $like)) {
+                $create = false;
+                $index = array_search(get_current_user_id(), $like);
+                unset($like[$index]);
+            } else {
+                $newLike = array(
+                    'user_name' => $currentUser->nickname,
+                    'user_id' => get_current_user_id()
+                );
+                array_push($like, $newLike);
+            }
+
+            update_post_meta($postId, '_likes', $like);
+            
+            return true;
         }
 
-        return true;
     }
-
-
 
     public function renderLikeButton($atts)
     {
@@ -104,34 +107,12 @@ class LikeButton extends \PostCommentLikes\Helper\Ajax
                 return;
             }
 
-            // $post_id = get_the_ID();
-            // $postComments = array();
             $postOrCommentId = $atts['post_or_comment_id'];
             $isComment = $atts['is_comment'];
             $current_user = wp_get_current_user();
 
-            // foreach(get_comments() as $comment) {
-            //     if ($comment->comment_post_ID == $post_id) {
-            //         $postComments[] = $comment;
-            //     }
-            // }
-
-            // $a = shortcode_atts(array(
-            //     'post_or_comment_id' => '',
-            // ), $atts );
-
-            // $add_likes = array(
-            //     array(
-            //         'user_name' => $current_user->nickname,
-            //         'user_id' => get_current_user_id()
-            //     ),
-            // );
-
-            // update_comment_meta(3, '_likes', $add_likes);
-
-            if ($isComment) {
+            if ($isComment == "true") {
                 // logic for displaying likes for this comment
-                
                 $likes = get_comment_meta($postOrCommentId, '_likes', true);
 
                 if (empty($likes) || is_array($likes) == false) {

@@ -23,9 +23,6 @@ PostCommentLikes.Ajax = (function($) {
     var counter = $('span.like-count', likeButton);
     var button = $(likeButton);
 
-    console.log(is_comment);
-    console.log(like_id);
-
     $.ajax({
         url: likeButtonData.ajax_url,
         type: 'post',
@@ -48,10 +45,7 @@ PostCommentLikes.Ajax = (function($) {
 
             counter.html(likes);
         },
-        success: function(response) {
-            console.log('success!');
-            console.log(response);
-        },
+        success: function(response) {},
         error: function(xhr, error){
             console.debug(xhr); 
             console.debug(error);

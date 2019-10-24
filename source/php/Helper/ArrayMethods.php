@@ -10,7 +10,6 @@ class ArrayMethods {
                 return true;
             }
         }
-
         return false;
     }
 }
