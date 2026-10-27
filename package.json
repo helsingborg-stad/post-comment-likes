@@ -18,7 +18,7 @@
   "homepage": "https://github.com/Svanmark/Wordpress-Plugin-Boilerplate",
   "devDependencies": {
     "gulp": "^3.8.11",
-    "gulp-autoprefixer": "^3.1.0",
+    "gulp-autoprefixer": "^10.0.0",
     "gulp-clean-css": "^3.10.0",
     "gulp-concat": "^2.5.2",
     "gulp-jshint": "^2.1.0",
